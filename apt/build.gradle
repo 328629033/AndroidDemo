@@ -1,0 +1,15 @@
+apply plugin: 'java'
+
+sourceCompatibility = rootProject.ext.sourceCompatibilityVersion
+targetCompatibility = rootProject.ext.targetCompatibilityVersion
+
+
+dependencies {
+    compile fileTree(dir: 'libs', include: ['*.jar'])
+    compileOnly deps.autoservice
+    compile deps.javapoet
+    compileOnly files(org.gradle.internal.jvm.Jvm.current().getToolsJar())
+}
+
+
+

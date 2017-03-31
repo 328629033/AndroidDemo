@@ -1,0 +1,58 @@
+apply plugin: 'com.android.application'
+
+buildscript {
+    repositories {
+        maven{
+            url uri("../repo")
+        }
+    }
+    dependencies{
+        classpath 'com.leeks.plugin:hello:1.0.0'
+    }
+}
+apply plugin: 'plugin.test'
+
+android {
+    compileSdkVersion 25
+    buildToolsVersion "25.0.2"
+
+    compileOptions {
+        sourceCompatibility = rootProject.ext.sourceCompatibilityVersion
+        targetCompatibility = rootProject.ext.targetCompatibilityVersion
+    }
+
+    defaultConfig {
+        applicationId "com.demo.android"
+        minSdkVersion 15
+        targetSdkVersion 25
+        versionCode 1
+        versionName "1.0"
+        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+    }
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+
+    dataBinding{
+        enabled true
+    }
+}
+
+dependencies {
+    compile fileTree(dir: 'libs', include: ['*.jar'])
+    androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
+        exclude group: 'com.android.support', module: 'support-annotations'
+    })
+    compile deps.supportv4
+    compile deps.appcompatv7
+    compile deps.recyclerviewv7
+    compile deps.cardviewv7
+    compile deps.design
+    compile deps.picasso
+    compile project(':apt')
+//    annotationProcessor (':apt')
+    testCompile 'junit:junit:4.12'
+}

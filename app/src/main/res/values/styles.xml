@@ -1,0 +1,21 @@
+<resources>
+
+    <!-- Base application theme. -->
+    <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
+        <!-- Customize your theme here. -->
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorAccent">@color/colorAccent</item>
+    </style>
+
+    <declare-styleable name="SlideSwitchButton">
+        <attr name="background_color" format="color"/>
+        <attr name="slide_color" format="color"/>
+        <attr name="tab_text_color" format="color"/>
+        <attr name="tab_text_size" format="dimension"/>
+        <attr name="cornor_radius" format="dimension"/>
+    </declare-styleable>
+    <declare-styleable name="GradientBackgroundView">
+        <attr name="mask_color" format="color"/>
+    </declare-styleable>
+</resources>

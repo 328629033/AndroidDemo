@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <data>
+        <variable
+            name="activity"
+            type="com.demo.android.event.EventActivity"/>
+
+    </data>
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            >
+
+            <TextView
+                android:id="@+id/tv_text"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:text="hello world."
+                android:gravity="center"
+                android:onClick="@{(view)->activity.doClick(view)}"/>
+
+        </FrameLayout>
+
+        <FrameLayout
+            android:id="@+id/fl_top"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="#3a1af7ff"
+            android:onClick="@{(view)->activity.doClick(view)}"/>
+
+    </FrameLayout>
+
+</layout>
