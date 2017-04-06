@@ -8,5 +8,6 @@ public class PluginImpl implements Plugin<Project>{
         project.task('testTask')<<{
             println("hello gradle plugin.")
         }
+        project.gradle.addListener(new CompileTimeListener())
     }
 }
