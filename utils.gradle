@@ -1,0 +1,9 @@
+def getPackageName(){
+    def manifestXml = project.file("AndroidManifest.xml")
+    def manifest = new XmlSlurper().parse(manifestXml)
+    return manifest['@package']
+}
+
+ext{
+    getPackageName = this.&getPackageName
+}

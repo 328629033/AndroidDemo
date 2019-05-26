@@ -84,7 +84,7 @@ public class GradientBackgroundView extends View {
             @Override
             public void onAnimationUpdate(ValueAnimator animation) {
                 currentWidth = (float) animation.getAnimatedValue();
-                System.out.println("current width is " + currentWidth + ",init width is " + initFillWidth + ",width is " + width);
+//                System.out.println("current width is " + currentWidth + ",init width is " + initFillWidth + ",width is " + width);
                 invalidate();
             }
         });

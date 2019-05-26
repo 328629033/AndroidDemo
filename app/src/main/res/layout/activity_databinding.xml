@@ -22,7 +22,7 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="horizontal"
+        android:orientation="vertical"
         android:padding="20dp">
 
         <TextView
@@ -64,7 +64,9 @@
         <ImageView
             android:id="@+id/iv_test"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            app:imageResource="@{user.resource}"
+            app:animation="@{user.animation}"/>
     </LinearLayout>
 
 </layout>

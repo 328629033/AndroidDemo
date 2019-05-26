@@ -1,0 +1,9 @@
+<component name="libraryTable">
+  <library name="Gradle: __local_jars__:/Users/herr.wang/Program/AndroidProgram/AndroidDemo/fileutil/libs/loader.jar:unspecified@jar">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/fileutil/libs/loader.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>

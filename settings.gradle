@@ -1,1 +1,16 @@
-include ':app', ':apt', ':hello'
+include ':app', ':apt', ':hello', ':loader', ':fileutil', ':http'
+
+//println "gradle hash code is " + gradle.hashCode()
+//println "home dir is " + gradle.gradleHomeDir
+//println "user home dir is " + gradle.gradleUserHomeDir
+//println "parent is " + gradle.parent
+
+def initEnvironment() {
+    Properties properties = new Properties()
+    File file = new File(rootDir.absolutePath + "/local.properties")
+    properties.load(file.newDataInputStream())
+    gradle.ext.api = properties.get("sdk.dir")
+    println gradle.api
+}
+
+//initEnvironment()

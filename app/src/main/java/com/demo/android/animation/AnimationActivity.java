@@ -1,15 +1,24 @@
 package com.demo.android.animation;
 
 import android.animation.ObjectAnimator;
+import android.animation.ValueAnimator;
+import android.content.ComponentName;
+import android.content.Intent;
+import android.content.ServiceConnection;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
+import android.os.IBinder;
 import android.support.annotation.Nullable;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
+import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.FrameLayout;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.demo.android.MainService;
 import com.demo.android.R;
 import com.demo.android.animation.handler.EventHandler;
 import com.demo.android.databinding.ActivityAnimationBinding;
@@ -24,11 +33,18 @@ public class AnimationActivity extends AppCompatActivity{
     TextView tvTitle;
     ActivityAnimationBinding binding;
     FrameLayout flConfig;
+    TextView tvScale;
+    LinearLayout llScale, llChild;
+    Button btnScale;
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         binding = DataBindingUtil.setContentView(this, R.layout.activity_animation);
         flConfig = binding.flConfig;
+        tvScale = binding.tvScale;
+        llScale = binding.llScale;
+        llChild = binding.llChild;
+        btnScale = binding.btnScale;
         listFragment = new ListFragment();
         configFragment = new ConfigFragment();
         FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
@@ -45,10 +61,27 @@ public class AnimationActivity extends AppCompatActivity{
             }
         });
 
+        Intent it = new Intent(this, MainService.class);
+        bindService(it, serviceConnection, BIND_AUTO_CREATE);
+
     }
+
+    ServiceConnection serviceConnection = new  ServiceConnection() {
+        @Override
+        public void onServiceConnected(ComponentName name, IBinder service) {
+
+        }
+
+        @Override
+        public void onServiceDisconnected(ComponentName name) {
+            System.out.print("disconnect...");
+        }
+    };
+
     float offset;
 
     private boolean needGetData = true;
+    int parentHeight, childHeight;
     @Override
     public void onWindowFocusChanged(boolean hasFocus) {
         super.onWindowFocusChanged(hasFocus);
@@ -62,8 +95,34 @@ public class AnimationActivity extends AppCompatActivity{
             upAnimator.start();
             binding.flConfig.setVisibility(View.VISIBLE);
         }
+        parentHeight = llScale.getHeight();
 
+        childHeight = llChild.getHeight();
+        System.out.println("-----" + childHeight);
+        doScaleAnim();
     }
+
+    void doScaleAnim(){
+        ValueAnimator valueAnimator = ValueAnimator.ofInt(childHeight, 0);
+        valueAnimator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
+            @Override
+            public void onAnimationUpdate(ValueAnimator animation) {
+                int value = (int) animation.getAnimatedValue();
+                ViewGroup.LayoutParams lp = llScale.getLayoutParams();
+                ViewGroup.LayoutParams childLp = llChild.getLayoutParams();
+                childLp.height = value;
+                lp.height = parentHeight - childHeight + value;
+                llChild.setLayoutParams(childLp);
+                llScale.setLayoutParams(lp);
+                System.out.println(value + "\t" + lp.height + "\t" + llScale.getHeight());
+//                llScale.setLayoutParams(lp);
+            }
+        });
+        valueAnimator.setDuration(500);
+        valueAnimator.start();
+    }
+
+
 
     private float dp2Px(float dpValue) {
         final float scale = getResources().getDisplayMetrics().density;
@@ -79,5 +138,11 @@ public class AnimationActivity extends AppCompatActivity{
         }else{
             super.onBackPressed();
         }
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        unbindService(serviceConnection);
     }
 }

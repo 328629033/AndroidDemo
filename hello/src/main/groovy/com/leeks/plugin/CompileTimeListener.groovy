@@ -10,7 +10,7 @@ import org.gradle.api.tasks.TaskState
 import org.gradle.util.Clock
 
 class CompileTimeListener implements TaskExecutionListener, BuildListener{
-    private Clock clock;
+    private Clock clock
     private times = []
 
     @Override
@@ -22,7 +22,7 @@ class CompileTimeListener implements TaskExecutionListener, BuildListener{
     void afterExecute(Task task, TaskState taskState) {
         def ms = clock.timeInMs
         times.add([ms, task.path])
-        task.project.logger.warn "${task.path} spend ${ms}ms"
+//        task.project.logger.warn "${task.path} spend ${ms}ms"
     }
 
     @Override
@@ -47,10 +47,22 @@ class CompileTimeListener implements TaskExecutionListener, BuildListener{
 
     @Override
     void buildFinished(BuildResult buildResult) {
+
         println "Task Spend Time:"
+        def totalTime = 0
         for(time in times){
-            printf "%7sms   %s\n", time
+            printf "%10sms   %s\n", time
+            totalTime += time[0]
         }
+        printf "total time is %s\n", totalTime
+
+        println("the task execution time over 1000ms will be shown below")
+        for(time in times){
+            if(time[0] > 1000){
+                printf "%10sms   %s\n", time
+            }
+        }
+
     }
 
 }

@@ -1,0 +1,40 @@
+apply plugin: 'com.android.library'
+
+android {
+    compileSdkVersion 25
+    buildToolsVersion "25.0.2"
+
+    defaultConfig {
+        minSdkVersion 15
+        targetSdkVersion 25
+        versionCode 1
+        versionName "1.0"
+
+        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+
+    }
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+
+    task delete_old_jar(type: Delete){
+        delete("libs/loader.jar")
+    }
+
+    //TODO make it to gradle plugin
+    task build_loader_jar(type: Jar, dependsOn: ['delete_old_jar', 'build'] ){
+        archiveName = "loader.jar"
+        from("build/intermediates/classes/release")
+        destinationDir = file("libs")
+        include("com/leeks/loader/**")
+        exclude("com/leeks/loader/BuildConfig.class")
+        exclude("com/leeks/loader/BuildConfig\$*.class")
+        exclude("**/R.class")
+        exclude("**/R\$*.class")
+
+    }
+}
+

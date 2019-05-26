@@ -1,21 +1,57 @@
 <resources>
 
     <!-- Base application theme. -->
-    <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
+    <style name="AppTheme" parent="Theme.AppCompat.Light">
         <!-- Customize your theme here. -->
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+    </style>
+
+    <style name="AppTheme.NoActionBar">
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
     </style>
 
     <declare-styleable name="SlideSwitchButton">
-        <attr name="background_color" format="color"/>
-        <attr name="slide_color" format="color"/>
-        <attr name="tab_text_color" format="color"/>
-        <attr name="tab_text_size" format="dimension"/>
-        <attr name="cornor_radius" format="dimension"/>
+        <attr name="background_color" format="color" />
+        <attr name="slide_color" format="color" />
+        <attr name="tab_text_color" format="color" />
+        <attr name="tab_text_size" format="dimension" />
+        <attr name="cornor_radius" format="dimension" />
     </declare-styleable>
     <declare-styleable name="GradientBackgroundView">
-        <attr name="mask_color" format="color"/>
+        <attr name="mask_color" format="color" />
     </declare-styleable>
+    <declare-styleable name="SpringScrollView">
+        <attr name="scrollMode" format="integer" />
+        <attr name="dampFactor" format="float" />
+        <attr name="revealRes" format="dimension" />
+        <attr name="maxSlideDistance" format="dimension" />
+    </declare-styleable>
+
+    <style name="LoadingDialog" parent="@android:style/Theme.Dialog">
+        <item name="android:windowFrame">@null</item>
+        <item name="android:windowIsTranslucent">true</item>
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:windowBackground">@android:color/transparent</item>
+        <item name="android:backgroundDimEnabled">true</item>
+        <item name="android:backgroundDimAmount">0.6</item>
+    </style>
+
+    <style name="Popup">
+        <item name="android:windowEnterAnimation">@anim/push_top</item>
+        <item name="android:windowExitAnimation">@anim/push_out_top</item>
+    </style>
+
+    <declare-styleable name="Ripple">
+        <attr name="count" format="integer"/>
+        <attr name="minRadius" format="dimension"/>
+        <attr name="maxRadius" format="dimension"/>
+        <attr name="offset" format="dimension"/>
+        <attr name="color" format="color"/>
+    </declare-styleable>
+
 </resources>

@@ -1,0 +1,55 @@
+apply plugin: 'com.android.library'
+
+android {
+    compileSdkVersion 25
+    buildToolsVersion "25.0.2"
+
+    defaultConfig {
+        minSdkVersion 15
+        targetSdkVersion 25
+        versionCode 1
+        versionName "1.0"
+
+        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+
+    }
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+}
+
+dependencies {
+    compile files('libs/loader.jar')
+    compile files('libs/commons-io-2.5.jar')
+}
+
+task delete_old_jar(type: Delete){
+    delete("libs/jars/file_util.jar")
+}
+
+//TODO make it to gradle plugin
+task build_loader_jar(type: Copy, dependsOn: ['delete_old_jar', 'build'] ){
+
+    from('build/intermediates/bundles/release/')
+    into('libs/jars/')
+    exclude("com/leeks/fileutil/BuildConfig\$*.class")
+    exclude("com/leeks/fileutil/BuildConfig.class")
+    exclude("**/R.class")
+    exclude("**/R\$*.class")
+    include('classes.jar')
+    rename('classes.jar', 'file_util.jar')
+
+//    archiveName = "file_util.jar"
+//    from("build/intermediates/classes/release")
+//    destinationDir = file("libs")
+//    include("com/leeks/loader/**")
+//    include("libs/commons-io-2.5.jar")
+//    exclude("com/leeks/loader/BuildConfig.class")
+//    exclude("com/leeks/loader/BuildConfig\$*.class")
+//    exclude("**/R.class")
+//    exclude("**/R\$*.class")
+
+}

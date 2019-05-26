@@ -2,16 +2,27 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.demo.android">
 
-    <uses-permission android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW" />
+    <uses-permission android:name="android.permission.WRITE_SETTINGS" />
+    <uses-permission android:name="android.permission.REORDER_TASKS" />
+    <uses-permission android:name="android.permission.GET_TASKS" />
+    <uses-permission android:name="android.permission.INTERACT_ACROSS_USERS_FULL" />
+    <uses-permission android:name="android.permission.GET_TOP_ACTIVITY_INFO" />
 
     <application
+        android:name=".MyApplication"
         android:allowBackup="true"
+        android:hardwareAccelerated="false"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:supportsRtl="true"
-        android:theme="@style/AppTheme"
-        android:hardwareAccelerated="false">
-        <activity android:name=".MainActivity">
+        android:theme="@style/AppTheme">
+        <activity
+            android:name=".MainActivity"
+            android:launchMode="singleTask">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -20,14 +31,54 @@
         </activity>
         <activity
             android:name=".databinding.DataBindingActivity"
-            android:screenOrientation="portrait"/>
-        <activity android:name=".databinding.list.DBListActivity"
-            android:screenOrientation="portrait"/>
-        <activity android:name=".selfview.ViewActivity"/>
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".databinding.list.DBListActivity"
+            android:screenOrientation="portrait" />
 
-        <activity android:name=".animation.AnimationActivity"/>
-        <activity android:name=".event.EventActivity"/>
-        <activity android:name=".apt.AptActivity"/>
+        <activity
+            android:name=".selfview.ViewActivity"
+            android:launchMode="singleInstance"
+            android:screenOrientation="portrait"
+            android:taskAffinity=".another" />
+
+        <activity android:name=".animation.AnimationActivity" />
+        <activity android:name=".event.EventActivity" />
+        <activity android:name=".apt.AptActivity" />
+        <activity android:name=".concurrent.ConcurrentActivity" />
+        <activity
+            android:name=".support.SupportDesignActivity"
+            android:theme="@style/AppTheme" />
+        <activity android:name=".jar.DynamicLoadJarActivity" />
+        <activity android:name=".spring_animation.SpringAnimationActivity" />
+        <activity android:name=".fragment.FragmentActivity" />
+        <activity android:name=".recyclerview.RecyclerViewActivity" />
+        <activity android:name=".viewpager.ViewPagerActivity" />
+        <activity android:name=".vm.VMActivity" />
+        <activity android:name=".mulitprocess.MultiProcessActivity" />
+
+        <service android:name=".MainService" />
+        <service
+            android:name=".mulitprocess.RemoteService"
+            android:process=":remote" />
+        <service
+            android:name=".mulitprocess.RemoteService2"
+            android:process=":remote2">
+            <intent-filter>
+                <action android:name="com.leeks.aidl" />
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+
+        </service>
+
+        <activity android:name=".service.ServiceActivity" />
+        <service android:name=".service.DemoService" />
+
+        <activity android:name=".brightness.BrightnessActivity" />
+        <activity android:name=".activity.LaunchActivity" />
+        <activity android:name=".proxy.ProxyActivity"/>
+
+        <service android:name=".NotificationService" />
     </application>
 
 </manifest>
